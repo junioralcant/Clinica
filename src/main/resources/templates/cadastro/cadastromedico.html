@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+	
+	<!-- Sobrescrevendo a class striped, dando um tom mais escuro a ela -->
+	<style type="text/css">
+		
+		/*Sobrescrevendo a class striped, dando um tom mais escuro a ela*/
+		table.striped>tbody>tr:nth-child(odd){
+			background-color: rgba(158, 154, 154, 0.5);
+		}
+		
+		/* que todo input do tipo submit seja da cor branca*/
+		
+		form input[type=submit]{
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div class="row">
+		<h2>Cadatro de Médicos</h2>
+		<form action="salvarmedico" method="post" th:object=${medicoobj} class="col s12">
+			
+			<div class="row">
+				<div class="input-fiel col s4">
+					<label for="id">Id</label>
+					<input name="id" th:field="*{id}" id="id" readonly="readonly">
+				</div>
+				<div class="input-fiel col s4">
+					<label for="nome">Nome</label>
+					<input name="nome" id="nome" th:field="*{nome}">
+				</div>
+				<div class="input-fiel col s4">
+					<label for="cpf">CPF</label>
+					<input name="cpf" id="cpf" th:field="*{cpf}">
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="input-fiel col s4">
+					<label for="rg">RG</label>
+					<input id="rg" name="rg" th:field="*{rg}">
+				</div>
+				<div class="input-fiel col s4">
+					<label for="sus">Número do SUS</label>
+					<input name="numeroSus" id="sus" th:field="*{numeroSus}">
+				</div>
+				<div class="input-fiel col s4">
+					<label for="crm">CRM</label>
+					<input name="crm" id="crm" th:field="*{crm}">
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="input-fiel col s4">
+					<label for="sexo">Sexo</label>
+					<input name="sexo" id="sexo" th:field="*{sexo}">
+				</div>
+				<div class="input-fiel col s4">
+					<label for="idade">Idade</label>
+					<input name="idade" id="idade" th:field="*{idade}">
+				</div>	
+				<div class="input-fiel col s4">
+					<label for="datanascimento">Data de Nascimento</label>
+					<input name="dataNascimento" id="datanascimento" th:field="*{dataNascimento}">
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="input-fiel col s4">
+					<label for="endereco">Endereço</label>
+					<input name="endereco" id="endereco" th:field="*{endereco}">
+				</div>
+				<div class="input-fiel col s4">
+					<label for="cidade">Cidade</label>
+					<input name="cidade" id="cidade" th:field="*{cidade}">
+				</div>
+				<div class="input-fiel col s4">
+					<label for="estado">Estado</label>
+					<input name="estado" id="estado" th:field="*{estado}">
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="input-fiel col s6">
+					<label for="email">E-mail</label>
+					<input name="email" id="email" th:field="*{email}">
+				</div>
+				<div class="input-fiel col s6">
+					<label for="telefone">Telefone</label>
+					<input name="telefone" id="telefone" th:field="*{telefone}">
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="input-fiel col s12">
+					<input class="waves-effect waves-light btn" type="submit" value="Salvar">
+					<button class="waves-effect waves-light btn" type="reset">Limpar</button>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+	
+	
+	<div class="row">
+		<form action="pesquisarmedico" method="post">
+			<div class="row">
+				<div class="input-fiel col s12">
+					<label>Pesquisar por nome:</label>
+					<input name="nomepesquisa">
+					<input class="waves-effct waves-light btn" type="submit" value="Buscar" >
+					<a href="/listamedico" class="waves-effect waves-light btn">Listar Medicos</a>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<table class="striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nome</th>
+				<th>Emial</th>
+				<th>CPF</th>
+				<th>Editar</th>
+				<th>Excluir</th>
+			</tr>
+		</thead>
+		<tr th:each = "medico : ${medicos}">
+			<td th:text = "${medico.id}"></td>
+			<td th:text = "${medico.nome}"></td>
+			<td th:text = "${medico.email}"></td>
+			<td th:text = "${medico.cpf}"></td>
+			<td><a th:href="@{/editarmedico/{idmedico}(idmedico=${medico.id})}">Editar</a></td> <!-- Passa um link para uma url, passando um paranmetro, para executar algo do lado do servidor. Passa o id p lado do servidor, vai carregar o objeto e colocar em edição -->
+			<td><a th:href="@{/removermedico/{idmedico}(idmedico=${medico.id})}">Excluir</a></td>
+		</tr>
+	</table>
+	
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+</body>
+</html>
