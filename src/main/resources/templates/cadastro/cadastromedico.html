@@ -135,7 +135,7 @@
 		</thead>
 		<tr th:each = "medico : ${medicos}">
 			<td th:text = "${medico.id}"></td>
-			<td th:text = "${medico.nome}"></td>
+			<td><a th:href="@{/telefones/{idmedico}(idmedico=${medico.id})}" ><span th:text = "${medico.nome}"></span></a></td>
 			<td th:text = "${medico.email}"></td>
 			<td th:text = "${medico.cpf}"></td>
 			<td><a th:href="@{/editarmedico/{idmedico}(idmedico=${medico.id})}">Editar</a></td> <!-- Passa um link para uma url, passando um paranmetro, para executar algo do lado do servidor. Passa o id p lado do servidor, vai carregar o objeto e colocar em edição -->

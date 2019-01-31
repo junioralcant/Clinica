@@ -29,6 +29,10 @@ public class MedicoController {
 		ModelAndView andView = new ModelAndView("cadastro/cadastromedico");
 		andView.addObject("medicoobj", new Medico()); // passa um objeto vazio. o obj é passado pq o nosso formulario de cadastro precisa receber um obj para poder alualizar a pagina, isso acontece por conta do metodo atualizar. esse é o camarada respossável por isso th:object=${medicoobj}, como n estamos atualizando passamos um obj vazio 
 		
+		// lista os dados dos medicos
+		Iterable<Medico> medicoIt = medicoRepository.findAll(); // busca no BD
+		andView.addObject("medicos", medicoIt); // essa string "medicos" é a string que fica dentro da tag <tr th:each = "medico : ${medicos}"> no documento html cadastromedico
+		
 		return andView;
 	}
 	
@@ -87,6 +91,17 @@ public class MedicoController {
 		ModelAndView andView = new ModelAndView("cadastro/cadastromedico");
 		andView.addObject("medicos", medicoRepository.findMedicoByNome(nomepesquisa));// chama o metodo findMedicoByNome que criamos no nosso repository e faz a pequisa no bd
 		andView.addObject("medicoobj", new Medico());
+		
+		return andView;
+	}
+	
+	@GetMapping("/telefones/{idmedico}") // é a mesma anotação do @RequestMapping só q ele deixa esplicito que usaremos um GET, dessa forma n é preciso especificar como no @RequestMapping
+	public ModelAndView telefones(@PathVariable("idmedico") Long idmedico ) { // chama a variavel idmedico q esta na documento html cadastro medico
+				
+		Optional<Medico> medico = medicoRepository.findById(idmedico);
+		
+		ModelAndView andView = new ModelAndView("cadastro/telefones");
+		andView.addObject("medicoobj", medico.get());
 		
 		return andView;
 	}

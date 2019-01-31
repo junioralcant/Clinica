@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+	
+	<!-- Sobrescrevendo a class striped, dando um tom mais escuro a ela -->
+	<style type="text/css">
+		
+		/*Sobrescrevendo a class striped, dando um tom mais escuro a ela*/
+		table.striped>tbody>tr:nth-child(odd){
+			background-color: rgba(158, 154, 154, 0.5);
+		}
+		
+		/* que todo input do tipo submit seja da cor branca*/
+		
+		form input[type=submit]{
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="row">
+		<h2>Detalhes</h2>
+	</div>
+		
+	<a class="waves-effct waves-light btn" href="/cadastromedico">Cadastro Médicos</a>	
+	
+	<div th:each=" p : ${medicoobj}">
+		<div class="row">
+			<p>ID: <span th:text="${p.id}"></span></p>
+			<p>Nome: <span th:text="${p.nome}"></span></p>
+			<p>CPF: <span th:text="${p.cpf}"></span></p>
+			<p>RG: <span th:text="${p.rg}"></span></p>
+			<p>CRM: <span th:text="${p.crm}"></span></p>
+			<p>SUS: <span th:text="${p.numeroSus}"></span></p>
+			<p>Idade: <span th:text="${p.idade}"></span></p>
+			<p>Data de Nascimento: <span th:text="${p.dataNascimento}"></span></p>
+			<p>Endereço: <span th:text="${p.endereco}"></span></p>
+			<p>Cidade: <span th:text="${p.cidade}"></span></p>
+			<p>Estado: <span th:text="${p.estado}"></span></p>
+			<p>Telefone: <span th:text="${p.telefone}"></span></p>
+			<p>E-mail: <span th:text="${p.email}"></span></p>
+			<p>Sexo: <span th:text="${p.sexo}"></span></p>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+</body>
+</html>

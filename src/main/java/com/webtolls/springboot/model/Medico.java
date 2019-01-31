@@ -1,11 +1,13 @@
 package com.webtolls.springboot.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Medico implements Serializable {
@@ -37,7 +39,8 @@ public class Medico implements Serializable {
 	
 	private String estado;
 	
-	private String telefone;
+	@OneToMany(mappedBy="medico") // um medico tem varios telefones 
+	private List<Telefone> telefone;
 	
 	private String email;
 	
@@ -102,11 +105,11 @@ public class Medico implements Serializable {
 		this.estado = estado;
 	}
 
-	public String getTelefone() {
+	public List<Telefone> getTelefone() {
 		return telefone;
 	}
-
-	public void setTelefone(String telefone) {
+	
+	public void setTelefone(List<Telefone> telefone) {
 		this.telefone = telefone;
 	}
 
