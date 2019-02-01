@@ -15,13 +15,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.webtolls.springboot.model.Medico;
+import com.webtolls.springboot.model.Telefone;
 import com.webtolls.springboot.repository.MedicoRepository;
+import com.webtolls.springboot.repository.TelefoneRepository;
 
 @Controller // informa que a class vai ser um controle 
 public class MedicoController {
 	
 	@Autowired // intancia a class
 	private MedicoRepository medicoRepository;
+	
+	@Autowired
+	private TelefoneRepository telefoneRepository;
 	
 	@RequestMapping(method=RequestMethod.GET, value="/cadastromedico") // ativa o metodo quando quando for digitado na url /cadastromedico 
 	public ModelAndView inicio() {
@@ -105,4 +110,20 @@ public class MedicoController {
 		
 		return andView;
 	}
+	
+	@PostMapping("**/addfoneMedico/{medicoid}")
+	public ModelAndView addFoneMedico(Telefone telefone, @PathVariable("medicoid") Long medicoid) {
+		
+		Medico medico = medicoRepository.findById(medicoid).get();
+		telefone.setMedico(medico);
+		
+		telefoneRepository.save(telefone);
+		
+		ModelAndView andView = new ModelAndView("cadastro/telefones");
+		andView.addObject("medicoobj", medico);
+		
+		return andView;
+	}
+
+
 }
