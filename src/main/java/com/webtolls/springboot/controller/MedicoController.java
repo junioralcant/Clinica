@@ -127,6 +127,20 @@ public class MedicoController {
 		
 		return andView;
 	}
+	
+	@GetMapping("/removertelefone/{idtelefone}")
+	public ModelAndView removerTelefone(@PathVariable("idtelefone") Long idtelefone	) {
+		
+		Medico medico =  telefoneRepository.findById(idtelefone).get().getMedico(); // atribui o telefone a medico  otribuir o obj filho telefone ou pai medico
+		
+		telefoneRepository.deleteById(idtelefone); // delata por id
+		
+		ModelAndView andView = new ModelAndView("cadastro/telefones"); // retorna para a tela de cadastro.
+		andView.addObject("medicoobj", medico);
+		andView.addObject("telefones", telefoneRepository.getTelefones(medico.getId())); // carrega os telefones
 
+		return andView;
+		
+    }
 
 }

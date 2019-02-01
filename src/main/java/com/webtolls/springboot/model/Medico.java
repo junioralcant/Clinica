@@ -3,6 +3,7 @@ package com.webtolls.springboot.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,7 +40,7 @@ public class Medico implements Serializable {
 	
 	private String estado;
 	
-	@OneToMany(mappedBy="medico") // um medico tem varios telefones 
+	@OneToMany(mappedBy="medico", orphanRemoval= true, cascade = CascadeType.ALL) // um medico tem varios telefones. orphanRemoval= true, cascade = CascadeType.ALL para que possa excluir o obj pai e os filhos seram excuidos juntos 
 	private List<Telefone> telefone;
 	
 	private String email;
