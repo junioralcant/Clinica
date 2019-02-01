@@ -107,20 +107,23 @@ public class MedicoController {
 		
 		ModelAndView andView = new ModelAndView("cadastro/telefones");
 		andView.addObject("medicoobj", medico.get());
+		andView.addObject("telefones", telefoneRepository.getTelefones(idmedico)); // carrega os telefones
 		
 		return andView;
 	}
 	
+	// adiciona e retorna	
 	@PostMapping("**/addfoneMedico/{medicoid}")
 	public ModelAndView addFoneMedico(Telefone telefone, @PathVariable("medicoid") Long medicoid) {
 		
 		Medico medico = medicoRepository.findById(medicoid).get();
 		telefone.setMedico(medico);
 		
-		telefoneRepository.save(telefone);
+		telefoneRepository.save(telefone); // salva os telefones no bd
 		
 		ModelAndView andView = new ModelAndView("cadastro/telefones");
 		andView.addObject("medicoobj", medico);
+		andView.addObject("telefones", telefoneRepository.getTelefones(medicoid)); // carrega os telefones
 		
 		return andView;
 	}
